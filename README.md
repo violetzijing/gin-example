@@ -20,7 +20,34 @@ The structure is like following
 │       └── jwt.go
 ├── models
 │   └── users.go
+└── services
+    ├── auth.go
+    ├── mocks
+    │   └── users.go
+    ├── users.go
+    └── user_test.go
+
 ```
+
+## Structure
+### Config
+All the config files are placed under `config`. Since I'm doing development. I only create development files here.
+
+### Endpoint
+Endpoint is registering routes for endpoints, parsing parameters from request and returning JSON response.
+
+### Services
+There are many single services like `user` and `auth`. In this layer, it will collect data from db, compose it and then return to endpoint layer
+`mocks` contains mocked functions for unit test.
+
+### Models
+This layer is for defining gorm models and doing basic serializing issue.
+
+### Lib
+There are several functions here for parsing config files, initializing database and unifying error handling.
+
+#### Middlewares
+`middlewares` contains a middleware for jwt including basic authorization and validation.
 
 ## Compile and Run
 Compile
@@ -115,6 +142,8 @@ Response body
 }
 ```
 ## DB schema
+I'm using MySQL for this project.
+
 | Field | Description | Type | Null | Key |
 | ------- | ------------- | ------ | ------ | ----- |
 | id    | user id     | int  | No   | Primary |

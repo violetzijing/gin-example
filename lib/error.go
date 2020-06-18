@@ -8,14 +8,17 @@ import (
 
 const NoRowFound = "record not found"
 
+// NewInternalServiceErr returns internal err
 func NewInternalServiceErr(err error) gin.H {
 	return gin.H{"error": err.Error()}
 }
 
+// NewBadRequestErr returns bad request err
 func NewBadRequestErr(field string) gin.H {
 	return gin.H{"error": fmt.Sprintf("%s field is invalid", field)}
 }
 
+// NewNotFoundErr returns not found err
 func NewNotFoundErr(resource string, params interface{}) gin.H {
 	return gin.H{"error": fmt.Sprintf("%s(#%v) is not found", resource, params)}
 }

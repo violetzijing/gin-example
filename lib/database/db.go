@@ -9,6 +9,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
+// Init returns initlized db instance
 func Init(config string) *gorm.DB {
 	db, err := gorm.Open("mysql", config)
 	if err != nil {
@@ -20,6 +21,7 @@ func Init(config string) *gorm.DB {
 	return db
 }
 
+// Inject db instance to gin
 func Inject(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Set("db", db)

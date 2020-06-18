@@ -9,25 +9,28 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// UserEndPoint defines end_point for user
 type UserEndPoint struct {
 	r   *gin.Engine
 	svc services.UserService
 }
 
+// NewUserEndPoint returns UserEndPoint and inits routes
 func NewUserEndPoint(r *gin.Engine, svc services.UserService) *UserEndPoint {
 	e := &UserEndPoint{
 		r:   r,
 		svc: svc,
 	}
-	e.InitRoutes()
+	e.initRoutes()
 	return e
 }
 
-func (e *UserEndPoint) InitRoutes() {
+func (e *UserEndPoint) initRoutes() {
 	e.r.GET("/users", e.ListUser)
 	e.r.GET("/user/:id", e.GetUser)
 }
 
+// ListUser returns listing user json response
 func (e *UserEndPoint) ListUser(c *gin.Context) {
 	users, err := e.svc.ListUser(c)
 	if err != nil {
@@ -38,6 +41,7 @@ func (e *UserEndPoint) ListUser(c *gin.Context) {
 	c.JSON(http.StatusOK, users)
 }
 
+// GetUser returns getting user json response
 func (e *UserEndPoint) GetUser(c *gin.Context) {
 	userID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {

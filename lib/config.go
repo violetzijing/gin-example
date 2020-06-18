@@ -6,11 +6,13 @@ import (
 	"os"
 )
 
+// Config defines config content and type
 type Config struct {
 	DBConfig string `json:"db_config"`
 	Port     int    `json:"port"`
 }
 
+// ParseConfig returns parsed config from config file
 func ParseConfig() *Config {
 	file, err := os.Open("config/development/config.json")
 	if err != nil {

@@ -49,7 +49,12 @@ There are several functions here for parsing config files, initializing database
 #### Middlewares
 `middlewares` contains a middleware for jwt including basic authorization and validation.
 
-## Compile and Run
+## Setup, Compile and Run
+Setup
+Modify `db_config` in `config/development/config.json`. It will automatically create user table in DB.
+```
+    "db_config": "violet:password@/igg?charset=utf8&parseTime=True&loc=Local"
+```
 Compile
 ```
 make

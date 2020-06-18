@@ -3,6 +3,7 @@ package endpoint
 import (
 	"net/http"
 	"restapi/lib"
+	"restapi/lib/middlewares"
 	"restapi/services"
 	"strconv"
 
@@ -26,7 +27,7 @@ func NewUserEndPoint(r *gin.Engine, svc services.UserService) *UserEndPoint {
 }
 
 func (e *UserEndPoint) initRoutes() {
-	e.r.GET("/users", e.ListUser)
+	e.r.GET("/users", middlewares.Authorized, e.ListUser)
 	e.r.GET("/user/:id", e.GetUser)
 }
 
@@ -37,8 +38,12 @@ func (e *UserEndPoint) ListUser(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, lib.NewInternalServiceErr(err))
 		return
 	}
+	result := []map[string]interface{}{}
+	for _, u := range users {
+		result = append(result, u.Serialize())
+	}
 
-	c.JSON(http.StatusOK, users)
+	c.JSON(http.StatusOK, result)
 }
 
 // GetUser returns getting user json response
@@ -57,5 +62,5 @@ func (e *UserEndPoint) GetUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, user.Serialize())
 }

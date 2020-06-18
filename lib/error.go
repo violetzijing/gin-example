@@ -22,3 +22,13 @@ func NewBadRequestErr(field string) gin.H {
 func NewNotFoundErr(resource string, params interface{}) gin.H {
 	return gin.H{"error": fmt.Sprintf("%s(#%v) is not found", resource, params)}
 }
+
+// NewConflict returns conflict err
+func NewConflict() gin.H {
+	return gin.H{"error": "resource is already existed"}
+}
+
+// NewUnauthorized return unauthorized err
+func NewUnauthorized() gin.H {
+	return gin.H{"error": "user is not authorized"}
+}

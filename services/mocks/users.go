@@ -63,3 +63,32 @@ func (mr *MockUserServiceMockRecorder) GetUser(arg0, arg1 interface{}) *gomock.C
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockUserService)(nil).GetUser), arg0, arg1)
 }
+
+// CreateUser mocks base method
+func (m *MockUserService) CreateUser(c *gin.Context, user *models.User) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateUser", c, user)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// CreateUser indicates an expected call of CreateUser
+func (mr *MockUserServiceMockRecorder) CreateUser(c, user interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockUserService)(nil).CreateUser), c, user)
+}
+
+// IsExisted mocks base method
+func (m *MockUserService) IsExisted(c *gin.Context, username string) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "IsExisted", c, username)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// IsExisted indicates an expected call of IsExisted
+func (mr *MockUserServiceMockRecorder) IsExisted(c, username interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsExisted", reflect.TypeOf((*MockUserService)(nil).IsExisted), c, username)
+}

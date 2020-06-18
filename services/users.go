@@ -11,6 +11,8 @@ import (
 type UserService interface {
 	ListUser(*gin.Context) ([]models.User, error)
 	GetUser(*gin.Context, int) (*models.User, error)
+	CreateUser(c *gin.Context, user *models.User) error
+	IsExisted(c *gin.Context, username string) (bool, error)
 }
 
 // UserServiceImpl is implementing API
@@ -36,4 +38,19 @@ func (s *UserServiceImpl) GetUser(c *gin.Context, userID int) (*models.User, err
 	user := &models.User{}
 	err := db.First(&user, userID).Error
 	return user, err
+}
+
+func (s *UserServiceImpl) CreateUser(c *gin.Context, user *models.User) error {
+	db := c.MustGet("db").(*gorm.DB)
+	db.NewRecord(*user)
+	return db.Create(user).Error
+}
+
+func (a *UserServiceImpl) IsExisted(c *gin.Context, username string) (bool, error) {
+	db := c.MustGet("db").(*gorm.DB)
+	var user models.User
+	if err := db.Where("name = ?", username).First(&user).Error; err != nil {
+		return false, err
+	}
+	return true, nil
 }

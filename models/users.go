@@ -6,7 +6,7 @@ type User struct {
 	Name         string `json:"name", gorm:"not null"`
 	Age          int    `json:"age"`
 	City         string `json:"city"`
-	PasswordHash string `json:"password_hash,omitempty" gorm:"not null"`
+	PasswordHash string `json:"-" gorm:"not null"`
 }
 
 // ReadFromMap reads from map and assign fields to user

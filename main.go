@@ -29,6 +29,8 @@ func main() {
 }
 
 func registerEndpoint(r *gin.Engine) {
-	endpoint.NewUserEndPoint(r, services.NewUserService())
-	endpoint.NewAuthEndPoint(r, services.NewAuthService(), services.NewUserService())
+	userSVC := services.NewUserService()
+	authSVC := services.NewAuthService()
+	endpoint.NewUserEndPoint(r, userSVC)
+	endpoint.NewAuthEndPoint(r, authSVC, userSVC)
 }

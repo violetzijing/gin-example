@@ -24,6 +24,7 @@ func init() {
 	secretKey = key
 }
 
+// JWTMiddleware defines a middleware for jwt
 func JWTMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tokenString, err := c.Cookie("token")

@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Authorized check the authorization for endpoin
 func Authorized(c *gin.Context) {
 	_, exists := c.Get("user")
 	if !exists {

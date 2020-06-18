@@ -35,10 +35,10 @@ func (m *MockUserService) EXPECT() *MockUserServiceMockRecorder {
 }
 
 // ListUser mocks base method
-func (m *MockUserService) ListUser(arg0 *gin.Context) ([]models.User, error) {
+func (m *MockUserService) ListUser(arg0 *gin.Context) ([]*models.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListUser", arg0)
-	ret0, _ := ret[0].([]models.User)
+	ret0, _ := ret[0].([]*models.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

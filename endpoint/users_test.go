@@ -24,14 +24,14 @@ func TestListUser(t *testing.T) {
 
 	var testCases = []struct {
 		ctx               *gin.Context
-		listUserSVCResult []models.User
+		listUserSVCResult []*models.User
 		listErrSVCErr     error
 		statusCode        int
 		expStatusCode     int
 	}{
 		{
 			ctx:               ctx,
-			listUserSVCResult: []models.User{models.User{ID: 1, Name: "test"}},
+			listUserSVCResult: []*models.User{&models.User{ID: 1, Name: "test"}},
 			expStatusCode:     200,
 		},
 		{

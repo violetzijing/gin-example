@@ -10,12 +10,14 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// AuthEndPoint defines auth endpoint
 type AuthEndPoint struct {
 	r       *gin.Engine
 	svc     services.AuthService
 	userSVC services.UserService
 }
 
+// NewAuthEndPoint returns an instance of endpoint and inits routes
 func NewAuthEndPoint(r *gin.Engine, svc services.AuthService, userSVC services.UserService) *AuthEndPoint {
 	e := &AuthEndPoint{
 		r:       r,
@@ -36,6 +38,7 @@ type RequestBody struct {
 	Password string `json:"password" binding:"required"`
 }
 
+// Register is for registering user and returning a token
 func (e *AuthEndPoint) Register(c *gin.Context) {
 	var body RequestBody
 	if err := c.BindJSON(&body); err != nil {
@@ -78,6 +81,7 @@ func (e *AuthEndPoint) Register(c *gin.Context) {
 	})
 }
 
+// Login will check the authentication and return a token
 func (e *AuthEndPoint) Login(c *gin.Context) {
 	var body RequestBody
 	if err := c.BindJSON(&body); err != nil {

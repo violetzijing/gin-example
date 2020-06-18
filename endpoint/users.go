@@ -10,13 +10,22 @@ import (
 )
 
 type UserEndPoint struct {
+	r   *gin.Engine
 	svc services.UserService
 }
 
-func UserRoutes(r *gin.Engine) {
-	e := &UserEndPoint{svc: services.NewUserService()}
-	r.GET("/users", e.ListUser)
-	r.GET("/user/:id", e.GetUser)
+func NewUserEndPoint(r *gin.Engine, svc services.UserService) *UserEndPoint {
+	e := &UserEndPoint{
+		r:   r,
+		svc: svc,
+	}
+	e.InitRoutes()
+	return e
+}
+
+func (e *UserEndPoint) InitRoutes() {
+	e.r.GET("/users", e.ListUser)
+	e.r.GET("/user/:id", e.GetUser)
 }
 
 func (e *UserEndPoint) ListUser(c *gin.Context) {

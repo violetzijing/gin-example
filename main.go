@@ -5,6 +5,7 @@ import (
 	"restapi/endpoint"
 	"restapi/lib"
 	"restapi/lib/database"
+	"restapi/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,6 +18,12 @@ func main() {
 	app := gin.Default()
 	app.Use(database.Inject(db))
 	app.Use(gin.Recovery())
-	endpoint.ApplyRoutes(app)
+
+	registerEndpoint(app)
+
 	app.Run(fmt.Sprintf(":%d", cfg.Port))
+}
+
+func registerEndpoint(r *gin.Engine) {
+	endpoint.NewUserEndPoint(r, services.NewUserService())
 }

@@ -3,10 +3,10 @@ package models
 // User is gorm model
 type User struct {
 	ID           int    `gorm:"primary_key" json:"id"`
-	Name         string `json:"name"`
+	Name         string `json:"name", gorm:"not null"`
 	Age          int    `json:"age"`
 	City         string `json:"city"`
-	PasswordHash string
+	PasswordHash string `json:"password_hash,omitempty" gorm:"not null"`
 }
 
 // ReadFromMap reads from map and assign fields to user

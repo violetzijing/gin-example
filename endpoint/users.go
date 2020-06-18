@@ -38,12 +38,11 @@ func (e *UserEndPoint) ListUser(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, lib.NewInternalServiceErr(err))
 		return
 	}
-	result := []map[string]interface{}{}
-	for _, u := range users {
-		result = append(result, u.Serialize())
+	for i := range users {
+		users[i].PasswordHash = ""
 	}
 
-	c.JSON(http.StatusOK, result)
+	c.JSON(http.StatusOK, users)
 }
 
 // GetUser returns getting user json response
@@ -61,6 +60,7 @@ func (e *UserEndPoint) GetUser(c *gin.Context) {
 		c.JSON(http.StatusNotFound, lib.NewNotFoundErr("user", userID))
 		return
 	}
+	user.PasswordHash = ""
 
-	c.JSON(http.StatusOK, user.Serialize())
+	c.JSON(http.StatusOK, user)
 }

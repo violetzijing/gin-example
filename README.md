@@ -53,7 +53,7 @@ There are several functions here for parsing config files, initializing database
 Setup
 Modify `db_config` in `config/development/config.json`. It will automatically create user table in DB.
 ```
-    "db_config": "violet:password@/igg?charset=utf8&parseTime=True&loc=Local"
+    "db_config": "violet:password@/testdb?charset=utf8&parseTime=True&loc=Local"
 ```
 Compile
 ```
